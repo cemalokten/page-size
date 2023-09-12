@@ -5,7 +5,7 @@ interface Colour {
   [key: string]: string;
 }
 
-type Colours =
+export type Colours =
   | "green"
   | "red"
   | "blue"
