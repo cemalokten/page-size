@@ -5,6 +5,7 @@ import { calculate_total_size } from "./helpers/calculate-page-size";
 import { create_svg } from "./helpers/create-svg";
 import { get_url, insert_url, update_url } from "./db/queries";
 import { older_than_days } from "./helpers/check-date";
+import { Colours } from "./helpers/create-svg";
 
 const app = express();
 const PORT = Number(Bun.env.PORT) || 8080;
@@ -12,16 +13,6 @@ const HOST = Bun.env.HOST || "localhost";
 
 app.use(cors());
 app.use(express.urlencoded({ extended: false }));
-
-type Colours =
-  | "green"
-  | "red"
-  | "blue"
-  | "purple"
-  | "orange"
-  | "darkgreen"
-  | "darkblue"
-  | "grey";
 
 app.get("/api/page-size/badge/:size?/:colour?", check_colour, (req, res) => {
   const colour = req.colour as Colours;
