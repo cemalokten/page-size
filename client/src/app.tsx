@@ -75,9 +75,9 @@ export function App() {
           <h1 className={commonClasses.headerText}>Why?</h1>
           <p className={commonClasses.text}>
             I built this to encourage a bit more transparency in web development
-            and promote conscious data usage. A bit of optimisation goes along
+            and promote conscious data usage. A little optimisation goes along
             way, faster page loads and lower energy consumption are all good
-            things. 🌎
+            things.
           </p>
           <p className={commonClasses.text}>
             Some lightweight things that are awesome:
@@ -90,8 +90,8 @@ export function App() {
             <li>→ Superfast websites</li>
           </ul>
           <p className={commonClasses.text}>
-            By making web pages lightweight, we not only reduce the digital
-            footprint but also create a smoother user experience.
+            By making web pages lighter, we not only create a smoother user
+            experience but also reduce the digital footprint. 🌎
           </p>
         </section>
 
