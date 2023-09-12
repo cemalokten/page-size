@@ -12,7 +12,7 @@ export function Badge({ color, size }: Badge) {
   const [htmlCopied, setHtmlCopied] = useState<boolean>(false);
   const [markdownCopied, setMarkdownCopied] = useState<boolean>(false);
 
-  const HTML = `<img src="${URL}/api/badge/${size}/${color}" alt="Page-size badge" style="height: 25px" />`;
+  const HTML = `<a href="https://www.page-size.com" target="_blank" rel="noopener"><img src="${URL}/api/badge/${size}/${color}" alt="Page-size badge" style="height: 25px" /></a>`;
   const MARKDOWN = `[![Page-size Badge](${URL}/api/badge/${size}/${color})](http://www.page-size.com)`;
 
   const handleMarkdownCopy = async () => {
