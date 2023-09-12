@@ -26,3 +26,5 @@ dist-ssr
 # Database
 *.db
 .env
+
+fly.toml
