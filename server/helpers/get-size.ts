@@ -1,51 +1,37 @@
-export async function get_size(url: string): Promise<string> {
+import axios, { AxiosResponse } from "axios";
+
+export async function get_size(url: string): Promise<number> {
+  let total = 0;
+
+  let stream: AxiosResponse | undefined;
+
   try {
-    const head = await fetch(url, { method: "HEAD" });
-    if (head.status === 404) {
-      return "0";
-    } else if (!head.ok) {
-      throw new Error(
-        `Server responded with ${head.status}: ${head.statusText}`,
-      );
-    }
-
-    const contentLength = head.headers.get("content-length");
-    if (contentLength) {
-      return contentLength;
-    } else {
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error(
-          `Server responded with ${response.status}: ${response.statusText}`,
-        );
-      }
-      const reader = response.body!.getReader();
-      let total = 0;
-
-      return new Promise<string>((resolve, reject) => {
-        function read() {
-          reader
-            .read()
-            .then(({ done, value }) => {
-              if (done) {
-                resolve(total.toString());
-                return;
-              }
-
-              total += value.length;
-              read();
-            })
-            .catch((error) => {
-              console.error(`Error while streaming from URL: ${url}`, error);
-              reject(error);
-            });
-        }
-
-        read();
-      });
-    }
+    stream = await axios.get(url, {
+      responseType: "stream",
+    });
   } catch (error) {
-    console.error("Failed to fetch URL", error);
-    return "0";
+    console.log(error);
+    return Promise.reject(error);
   }
+
+  if (!stream) {
+    return Promise.reject("Stream is undefined");
+  }
+
+  return new Promise((resolve, reject) => {
+    stream?.data.on("data", (chunk: any) => {
+      total += chunk.length;
+    });
+
+    stream?.data.on("end", () => {
+      stream?.data.destroy(); // Close the stream
+      resolve(total);
+    });
+
+    stream?.data.on("error", (error: any) => {
+      console.error(`Error while streaming from URL: ${url}`, error);
+      stream?.data.destroy(); // Close the stream
+      reject(error);
+    });
+  });
 }
