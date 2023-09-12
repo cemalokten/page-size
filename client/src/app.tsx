@@ -57,7 +57,7 @@ export function App() {
     <>
       <header className="flex gap-3 mb-5">
         <img
-          src={`${SERVER}/api/badge/36/purple`}
+          src={`${SERVER}/api/badge/65/purple`}
           alt="Page-size badge"
           style="height: 25px"
         />
@@ -170,7 +170,7 @@ export function App() {
             <li>
               1. Complete a{" "}
               <a
-                href="https://github.com/cemalokten/page-size"
+                href="https://gtmetrix.com/"
                 target="_blank"
                 rel="noopener"
                 className="text-blue-700 hover:text-blue-400"
@@ -186,6 +186,7 @@ export function App() {
               3. Note down the <strong>uncompressed</strong> size
             </li>
             <li>4. If it is in MB then convert it to KB. (MB * 1000)</li>
+            <li>5. Round up to the nearest KB</li>
           </ul>
         </section>
       </main>
