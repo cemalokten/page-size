@@ -1,64 +1,37 @@
-import { useState, useEffect } from "preact/hooks";
-import { object, string } from "yup";
+import { useState } from "preact/hooks";
+import { object, number } from "yup";
 import { Badge } from "./components/badge";
-import { get_size_only } from "./api/get-size-badge";
 
 const SERVER = import.meta.env.VITE_API_URL || "http://localhost:8080";
 
-const addHttpPrefix = (url: string): string => {
-  if (!/^https?:\/\//i.test(url)) {
-    return `https://${url}`;
-  }
-  return url;
-};
-
-const urlSchema = object({
-  url: string().url().required(),
+const sizeSchema = object({
+  size: number()
+    .required("Please enter a page size in KB")
+    .typeError("Please enter a number")
+    .min(1, "Please enter a size between 1 and 99999")
+    .max(99999, "Please enter a size between 1 and 99999"),
 });
 
 export function App() {
-  const [url, setURL] = useState("");
-  const [currentURL, setCurrentURL] = useState("");
-  const [validatedURL, setValidatedURL] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState([]);
-  const [pageSize, setPageSize] = useState(0);
+  const [input, setInput] = useState<string>("");
+  const [size, setSize] = useState<number>(0);
+  const [error, setError] = useState<string[]>([]);
 
   const handleChange = (e: Event) => {
     const { value } = e.target as HTMLInputElement;
     setError([]);
-    setURL(value);
+    setInput(value);
   };
 
   const handleGenerate = async (e: Event) => {
     e.preventDefault();
-    if (currentURL !== url) {
-      const prefixedURL = addHttpPrefix(url);
-      try {
-        await urlSchema.validate({ url: prefixedURL });
-        setCurrentURL(url);
-        setValidatedURL(encodeURIComponent(prefixedURL));
-      } catch (err: any) {
-        setError(err.errors);
-      }
+    try {
+      await sizeSchema.validate({ size: input });
+      setSize(Number(input));
+    } catch (err: any) {
+      setError(err.errors);
     }
   };
-
-  useEffect(() => {
-    const fetchSize = async () => {
-      if (!validatedURL || error.length) return;
-      try {
-        setIsLoading(true);
-        const size = await get_size_only({ URL: validatedURL });
-        setPageSize(size);
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchSize();
-  }, [validatedURL]);
 
   const colours = [
     "green",
@@ -89,21 +62,22 @@ export function App() {
           style="height: 25px"
         />
       </header>
+
       <main className="flex flex-col gap-5">
         <section className={commonClasses.section}>
           <h1 className={commonClasses.headerText}>What is page size?</h1>
           <p className={commonClasses.text}>
-            A simple service to generate a small SVG badge that displays the
-            size of any webpage in kilobytes. With the aim of bringing
-            transparency to web development while encouraging mindful data
-            usage.
+            A simple API service to generate a concise SVG badge that displays
+            the size of a webpage. This initiative is intended to foster
+            transparency in web development and promote conscious data usage.
           </p>
         </section>
 
         <section className={commonClasses.section}>
           <h1 className={commonClasses.headerText}>How does it work?</h1>
           <ul className={commonClasses.text}>
-            <li>- Input a URL</li>
+            <li>- Determine the page size using your browser's devtools</li>
+            <li>- Convert the size to kilobytes (if in mb: mb * 1000)</li>
             <li>- Click 'Generate'</li>
             <li>- Embed using HTML or Markdown code</li>
           </ul>
@@ -116,7 +90,7 @@ export function App() {
                     error.length ? "border-red-500" : "border-grey-100"
                   }`}
                   onInput={handleChange}
-                  placeholder="Enter URL"
+                  placeholder="Page size in KB"
                 />
               </div>
               <div className="w-1/3">
@@ -124,49 +98,47 @@ export function App() {
                   type="submit"
                   className="w-full bg-stone-200 text-black p-3 rounded-lg focus:ring-1 focus:ring-black hover:bg-stone-300"
                 >
-                  {isLoading ? "Loading..." : "Generate"}
+                  Generate badge
                 </button>
               </div>
             </div>
             {error.length > 0 && (
-              <p className="text-red-500 mt-4">Please enter a valid URL</p>
+              <p className="text-red-500 mt-4">{error[0]}</p>
             )}
           </form>
         </section>
 
         <section className={`${commonClasses.section} gap-4`}>
           {colours.map((colour) => (
-            <Badge
-              validatedURL={validatedURL}
-              color={colour}
-              pageSize={pageSize}
-            />
+            <Badge color={colour} size={size} />
           ))}
         </section>
 
         <section className={commonClasses.section}>
           <h2 className={commonClasses.headerText}>About</h2>
-          <ul className={commonClasses.text}>
-            <li>- Badges auto-update every 30 days</li>
-            <li>- Manually recheck anytime</li>
-            <li>
-              - Page sizes are cached to minimize requests and conserve data
-            </li>
-            <li>
-              - This is a work in progress. Some sites may present issues.
-            </li>
-            <li>
-              - Want to contribute? Check the{" "}
-              <a
-                className="text-blue-700 hover:text-blue-400"
-                href="https://github.com/cemalokten/page-size"
-                target="_blank"
-                rel="noopener"
-              >
-                GitHub repo
-              </a>
-            </li>
-          </ul>
+          <p className={commonClasses.text}>
+            I wanted to offer an update regarding the current version of the
+            site. Originally, I envisioned a tool that would automatically
+            determine web page sizes. However, due to significant resource and
+            memory usage, I chose a simpler approach.
+          </p>
+          <p className={commonClasses.text}>
+            The current version requires users to manually find the page size
+            using their browser's developer console. Though more basic, it still
+            allows users to generate badges representing their web page sizes,
+            emphasising transparency and mindful data usage.
+          </p>
+          <p className={commonClasses.text}>
+            Want to contribute? Check the{" "}
+            <a
+              className="text-blue-700 hover:text-blue-400"
+              href="https://github.com/cemalokten/page-size"
+              target="_blank"
+              rel="noopener"
+            >
+              GitHub repo
+            </a>
+          </p>
         </section>
       </main>
 

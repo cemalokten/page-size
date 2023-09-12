@@ -2,18 +2,18 @@ import { useState } from "preact/hooks";
 
 type Badge = {
   validatedURL?: String;
-  pageSize?: Number;
+  size?: Number;
   color?: String;
 };
 
 const URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
 
-export function Badge({ validatedURL, color, pageSize }: Badge) {
+export function Badge({ color, size }: Badge) {
   const [htmlCopied, setHtmlCopied] = useState<boolean>(false);
   const [markdownCopied, setMarkdownCopied] = useState<boolean>(false);
 
-  const HTML = `<img src="${URL}/api/calculate-page-size-with-badge/${validatedURL}/${color}" alt="Page-size badge" style="height: 25px" />`;
-  const MARKDOWN = `[![Page-size Badge](${URL}/api/calculate-page-size-with-badge/${validatedURL}/${color})](http://www.page-size.com)`;
+  const HTML = `<img src="${URL}/api/badge/${size}/${color}" alt="Page-size badge" style="height: 25px" />`;
+  const MARKDOWN = `[![Page-size Badge](${URL}/api/badge/${size}/${color})](http://www.page-size.com)`;
 
   const handleMarkdownCopy = async () => {
     try {
@@ -38,7 +38,7 @@ export function Badge({ validatedURL, color, pageSize }: Badge) {
   return (
     <div className="flex gap-2 justify-between">
       <img
-        src={`${URL}/api/badge/${pageSize}/${color}`}
+        src={`${URL}/api/badge/${size}/${color}`}
         alt="page-size.com badge"
         style="height: 25px"
       />
