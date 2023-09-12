@@ -7,7 +7,26 @@ export function validate_url(req: Request, res: Response, next: NextFunction) {
     req.decodedURL = new URL(decoded_url).href;
     next();
   } catch (err) {
-    console.log(err);
+    console.error(err);
     return res.status(400).send("Error decoding URL");
   }
+}
+
+export function check_colour(req: Request, res: Response, next: NextFunction) {
+  let colour = req.params.colour || "purple";
+  const colours = [
+    "purple",
+    "green",
+    "red",
+    "orange",
+    "blue",
+    "darkgreen",
+    "darkblue",
+    "grey",
+  ];
+
+  if (!colours.includes(colour)) colour = "purple";
+
+  req.colour = colour;
+  next();
 }
