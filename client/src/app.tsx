@@ -57,7 +57,7 @@ export function App() {
     <>
       <header className="flex gap-3 mb-5">
         <img
-          src={`${SERVER}/api/badge/400/darkblue`}
+          src={`${SERVER}/api/badge/36/darkgreen`}
           alt="Page-size badge"
           style="height: 25px"
         />
