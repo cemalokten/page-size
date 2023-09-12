@@ -57,7 +57,7 @@ export function App() {
     <>
       <header className="flex gap-3 mb-5">
         <img
-          src={`${SERVER}/api/badge/36/darkgreen`}
+          src={`${SERVER}/api/badge/36/purple`}
           alt="Page-size badge"
           style="height: 25px"
         />
@@ -65,21 +65,43 @@ export function App() {
 
       <main className="flex flex-col gap-5">
         <section className={commonClasses.section}>
-          <h1 className={commonClasses.headerText}>What is page size?</h1>
+          <h1 className={commonClasses.headerText}>What is it?</h1>
           <p className={commonClasses.text}>
-            A simple API service to generate a concise SVG badge that displays
-            the size of a webpage. This initiative is intended to foster
-            transparency in web development and promote conscious data usage.
+            A simple API service that generates an SVG badge that displays the
+            size of your webpage. Each badge is less than 1KB.
+          </p>
+        </section>
+        <section className={commonClasses.section}>
+          <h1 className={commonClasses.headerText}>Why?</h1>
+          <p className={commonClasses.text}>
+            I built this to encourage a bit more transparency in web development
+            and promote conscious data usage. A bit of optimisation goes along
+            way, faster page loads and lower energy consumption are all good
+            things. 🌎
+          </p>
+          <p className={commonClasses.text}>
+            Some lightweight things that are awesome:
+          </p>
+          <ul className={commonClasses.text}>
+            <li>→ Feathers</li>
+            <li>→ Bubbles</li>
+            <li>→ Fluffy clouds</li>
+            <li>→ Crisp snowflakes</li>
+            <li>→ Superfast websites</li>
+          </ul>
+          <p className={commonClasses.text}>
+            By making web pages lightweight, we not only reduce the digital
+            footprint but also create a smoother user experience.
           </p>
         </section>
 
         <section className={commonClasses.section}>
           <h1 className={commonClasses.headerText}>How does it work?</h1>
           <ul className={commonClasses.text}>
-            <li>- Determine the page size using your browser's devtools</li>
-            <li>- Convert the size to kilobytes (if in mb: mb * 1000)</li>
-            <li>- Click 'Generate'</li>
-            <li>- Embed using HTML or Markdown code</li>
+            <li>1. Determine the page size using GTMetrix (see notes)</li>
+            <li>2. Convert the size to kilobytes (if in mb: mb * 1000)</li>
+            <li>3. Click 'Generate'</li>
+            <li>4. Embed using HTML or Markdown code</li>
           </ul>
 
           <form onSubmit={handleGenerate} noValidate>
@@ -98,7 +120,7 @@ export function App() {
                   type="submit"
                   className="w-full bg-stone-200 text-black p-3 rounded-lg focus:ring-1 focus:ring-black hover:bg-stone-300"
                 >
-                  Generate badge
+                  Generate
                 </button>
               </div>
             </div>
@@ -117,16 +139,14 @@ export function App() {
         <section className={commonClasses.section}>
           <h2 className={commonClasses.headerText}>About</h2>
           <p className={commonClasses.text}>
-            I wanted to offer an update regarding the current version of the
-            site. Originally, I envisioned a tool that would automatically
-            determine web page sizes. However, due to significant resource and
-            memory usage, I chose a simpler approach.
+            I originally developed the tool to also calculate the size of a
+            page, without having to manually enter it. Sadly, this used
+            significant resources and memory. To keep in the spirit of the site,
+            I decided to go for a simpler, lighter option.
           </p>
           <p className={commonClasses.text}>
-            The current version requires users to manually find the page size
-            using their browser's developer console. Though more basic, it still
-            allows users to generate badges representing their web page sizes,
-            emphasising transparency and mindful data usage.
+            You may have noticed there is no validation or checking of the sizes
+            you submit, this is purely an honesty based system.
           </p>
           <p className={commonClasses.text}>
             Want to contribute? Check the{" "}
@@ -139,6 +159,34 @@ export function App() {
               GitHub repo
             </a>
           </p>
+        </section>
+        <section className={commonClasses.section}>
+          <h2 className={commonClasses.headerText}>GTMetrix</h2>
+
+          <p className={commonClasses.text}>
+            To calculate the size of your web page, follow these steps:
+          </p>
+          <ul className={commonClasses.text}>
+            <li>
+              1. Complete a{" "}
+              <a
+                href="https://github.com/cemalokten/page-size"
+                target="_blank"
+                rel="noopener"
+                className="text-blue-700 hover:text-blue-400"
+              >
+                GTMetrix
+              </a>{" "}
+              scan on your webpage
+            </li>
+            <li>
+              2. Once complete, click on the <strong>Waterfall</strong> tab
+            </li>
+            <li>
+              3. Note down the <strong>uncompressed</strong> size
+            </li>
+            <li>4. If it is in MB then convert it to KB. (MB * 1000)</li>
+          </ul>
         </section>
       </main>
 
