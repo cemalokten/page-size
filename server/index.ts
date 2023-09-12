@@ -14,16 +14,38 @@ const HOST = Bun.env.HOST || "localhost";
 app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 
-app.get("/api/page-size/badge/:size?/:colour?", check_colour, (req, res) => {
-  const colour = req.colour as Colours;
-  const size = Number(req.params.size);
-  res.setHeader("Content-Type", "image/svg+xml");
-  const svg = create_svg(size, colour);
-  res.status(200).send(svg);
+app.get("/api/badge/:size?/:colour?", check_colour, (req, res) => {
+  try {
+    const colour = req.colour as Colours;
+    const size = Number(req.params.size);
+    res.setHeader("Content-Type", "image/svg+xml");
+    const svg = create_svg(size, colour);
+    res.status(200).send(svg);
+  } catch (error) {
+    console.error(error);
+    res.status(400).send("Error generating SVG");
+  }
+});
+
+app.get("/api/calculate-page-size/:url", validate_url, async (req, res) => {
+  const url = req.decodedURL;
+  try {
+    let size;
+
+    size = await calculate_total_size(url);
+    await insert_url({ url, size });
+
+    if (size !== null) {
+      res.status(200).json(size);
+    }
+  } catch (e) {
+    console.error(e);
+    res.status(400).send("Error calculating size");
+  }
 });
 
 app.get(
-  "/api/page-size/:url/:colour?",
+  "/api/calculate-page-size-with-badge/:url/:colour?",
   check_colour,
   validate_url,
   async (req, res) => {
@@ -52,7 +74,7 @@ app.get(
         res.status(200).send(svg);
       }
     } catch (e) {
-      console.log(e);
+      console.error(e);
       res.status(400).send("Error generating SVG");
     }
   },
