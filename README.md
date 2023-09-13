@@ -1,4 +1,4 @@
-# 🌐 Page Size
+![page-size.com badge](https://pagesize.fly.dev/api/badge/612/purple)
 
 A simple service that calculates and generates a small SVG badge that displays the size of any webpage in kilobytes, aiming to bring transparency to web development and encourage mindful data usage.
 
@@ -28,21 +28,21 @@ Some lightweight things that are awesome:
 
 ### Badges
 
-![page-size.com badge](https://pagesize.fly.dev/api/badge/256/green)
+![page-size.com badge](https://pagesize.fly.dev/api/badge/612/green)
 
-![page-size.com badge](https://pagesize.fly.dev/api/badge/256/red)
+![page-size.com badge](https://pagesize.fly.dev/api/badge/612/red)
 
-![page-size.com badge](https://pagesize.fly.dev/api/badge/256/blue)
+![page-size.com badge](https://pagesize.fly.dev/api/badge/612/blue)
 
-![page-size.com badge](https://pagesize.fly.dev/api/badge/256/purple)
+![page-size.com badge](https://pagesize.fly.dev/api/badge/612/purple)
 
-![page-size.com badge](https://pagesize.fly.dev/api/badge/256/orange)
+![page-size.com badge](https://pagesize.fly.dev/api/badge/612/orange)
 
-![page-size.com badge](https://pagesize.fly.dev/api/badge/256/grey)
+![page-size.com badge](https://pagesize.fly.dev/api/badge/612/grey)
 
-![page-size.com badge](https://pagesize.fly.dev/api/badge/256/darkgreen)
+![page-size.com badge](https://pagesize.fly.dev/api/badge/612/darkgreen)
 
-![page-size.com badge](https://pagesize.fly.dev/api/badge/256/darkblue)
+![page-size.com badge](https://pagesize.fly.dev/api/badge/612/darkblue)
 
 ## Branch Information
 
