@@ -57,7 +57,7 @@ export function App() {
     <>
       <header className="flex gap-3 mb-5">
         <img
-          src={`${SERVER}/api/badge/65/purple`}
+          src={`${SERVER}/api/badge/26/purple`}
           alt="Page-size badge"
           style="height: 25px"
         />
@@ -183,7 +183,7 @@ export function App() {
               2. Once complete, click on the <strong>Waterfall</strong> tab
             </li>
             <li>
-              3. Note down the <strong>uncompressed</strong> size
+              3. Note down the <strong>compressed</strong> size
             </li>
             <li>4. If it is in MB then convert it to KB. (MB * 1000)</li>
             <li>5. Round up to the nearest KB</li>
