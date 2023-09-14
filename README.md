@@ -3,7 +3,8 @@
 <a href="https://www.page-size.com" target="_blank" rel="noopener"><img src="https://pagesize.fly.dev/api/badge/612/blue" alt="Page-size badge" style="height: 25px" /></a>
    <a href="https://www.page-size.com" target="_blank" rel="noopener"><img src="https://pagesize.fly.dev/api/badge/612/red" alt="Page-size badge" style="height: 25px" /></a>
 </p>
-<h1 align="center">Bun</h1>
+
+<h1 align="center">Page Size</h1>
 ---
 
 A simple service that calculates and generates a small SVG badge that displays the size of any webpage in kilobytes, aiming to bring transparency to web development and encourage mindful data usage.
